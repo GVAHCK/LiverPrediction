@@ -1,0 +1,139 @@
+{
+  "n_patients": 583,
+  "n_bootstraps": 2000,
+  "phase10_bootstrap_metrics": {
+    "auroc": {
+      "mean": 0.7498637491862238,
+      "ci95": [
+        0.7101626600461476,
+        0.7873942081952151
+      ]
+    },
+    "ap": {
+      "mean": 0.8914932778354312,
+      "ci95": [
+        0.8592397166787381,
+        0.9176530069995084
+      ]
+    },
+    "brier": {
+      "mean": 0.17206203648226326,
+      "ci95": [
+        0.15759608509913484,
+        0.18666908519746214
+      ]
+    },
+    "recall": {
+      "mean": 0.9207216823162674,
+      "ci95": [
+        0.8941169226311214,
+        0.9450026849642004
+      ]
+    },
+    "specificity": {
+      "mean": 0.2153995052083403,
+      "ci95": [
+        0.15339739304812836,
+        0.2847692597870735
+      ]
+    },
+    "female_fnr": {
+      "mean": 0.13989763655386522,
+      "ci95": [
+        0.07142857142857142,
+        0.21650700252869085
+      ]
+    },
+    "male_fnr": {
+      "mean": 0.06199080652737271,
+      "ci95": [
+        0.03772995283018868,
+        0.0879805159302152
+      ]
+    },
+    "fnr_gap_female_minus_male": {
+      "mean": 0.07790683002649251,
+      "ci95": [
+        0.005223914472621129,
+        0.15770100966503986
+      ]
+    }
+  },
+  "primary_comparison": {
+    "comparison": "Group_Audited_Policy vs Baseline_Global_Confidence (B=0.20)",
+    "type": "PRIMARY_PRESPECIFIED_CONFIRMATORY",
+    "mean_diff_worst_miss": -0.0046561063029877375,
+    "ci95_diff_worst_miss": [
+      -0.0488068771849482,
+      0.033333333333333326
+    ],
+    "p_value_unadjusted": 0.868,
+    "interpretation": "Positive delta indicates proposed policy reduces worst-group missed disease rate."
+  },
+  "secondary_comparisons": [
+    {
+      "baseline": "decision_no_abs",
+      "type": "SECONDARY_EXPLORATORY",
+      "mean_diff_worst_miss": 0.004774948682518959,
+      "ci95": [
+        -0.010742310293401712,
+        0.028428747366895896
+      ],
+      "p_value_raw": 0.755,
+      "p_value_holm_adjusted": 1.0
+    },
+    {
+      "baseline": "decision_random",
+      "type": "SECONDARY_EXPLORATORY",
+      "mean_diff_worst_miss": -0.00039076064096027306,
+      "ci95": [
+        -0.04683091084424874,
+        0.044698411129592636
+      ],
+      "p_value_raw": 0.996,
+      "p_value_holm_adjusted": 1.0
+    },
+    {
+      "baseline": "decision_global_two_threshold",
+      "type": "SECONDARY_EXPLORATORY",
+      "mean_diff_worst_miss": -0.12093202992285872,
+      "ci95": [
+        -0.19581633542538354,
+        -0.058154803936253434
+      ],
+      "p_value_raw": 0.0,
+      "p_value_holm_adjusted": 0.0
+    },
+    {
+      "baseline": "decision_group_lambda0",
+      "type": "SECONDARY_EXPLORATORY",
+      "mean_diff_worst_miss": -0.009164470534206472,
+      "ci95": [
+        -0.0329780146568954,
+        0.0
+      ],
+      "p_value_raw": 0.799,
+      "p_value_holm_adjusted": 1.0
+    },
+    {
+      "baseline": "decision_cost_sensitive",
+      "type": "SECONDARY_EXPLORATORY",
+      "mean_diff_worst_miss": -0.0013029050116048612,
+      "ci95": [
+        -0.005555598435731201,
+        0.0
+      ],
+      "p_value_raw": 0.74,
+      "p_value_holm_adjusted": 1.0
+    }
+  ],
+  "leakage_gap_bootstrap": {
+    "point_estimate": 0.0007,
+    "ci95_bootstrap": [
+      -0.0002,
+      0.0016
+    ],
+    "replaces_invalid_delong_p_value": true,
+    "note": "Fold-level t-test/DeLong p-values on overlapping CV folds have been eliminated per Rule 6."
+  }
+}

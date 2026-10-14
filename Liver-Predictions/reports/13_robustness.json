@@ -1,0 +1,84 @@
+{
+  "duplicate_grouped_sensitivity": {
+    "standard_5fold_auroc": 0.7522760765496413,
+    "grouped_5fold_auroc": 0.7462676766929924,
+    "delta_auroc_duplicate_optimism": 0.006008399856648916,
+    "standard_5fold_brier": 0.1735522047400568,
+    "grouped_5fold_brier": 0.17487997237956682,
+    "delta_brier": 0.001327767639510008,
+    "interpretation": "Positive delta indicates standard CV slightly overestimates AUROC due to duplicate records crossing train/test folds."
+  },
+  "missingness_stress": {
+    "MCAR_10%": 0.729618601730579,
+    "MarkerDep_10%": 0.7475247053914665,
+    "MCAR_20%": 0.7130180513242171,
+    "MarkerDep_20%": 0.7465282571590156,
+    "MCAR_30%": 0.7615045872310224,
+    "MarkerDep_30%": 0.7471249909237152
+  },
+  "learning_curve_and_noise": {
+    "learning_curve": {
+      "20%_train_size": 0.7328206127284795,
+      "40%_train_size": 0.7572899696570852,
+      "60%_train_size": 0.7467755411766752,
+      "80%_train_size": 0.749505892170669,
+      "100%_train_size": 0.748783266501197
+    },
+    "label_noise": {
+      "5%_label_noise": 0.7385434787277452,
+      "10%_label_noise": 0.732827260148309,
+      "15%_label_noise": 0.7263663260119675
+    },
+    "age_stratified": {
+      "age_under_40": {
+        "count": 225,
+        "disease_prevalence": 0.6311111111111111,
+        "auroc": 0.7004921092821993,
+        "brier": 0.20634486954539688
+      },
+      "age_40_to_60": {
+        "count": 259,
+        "disease_prevalence": 0.7799227799227799,
+        "auroc": 0.766718777140872,
+        "brier": 0.14682996123598907
+      },
+      "age_over_60": {
+        "count": 99,
+        "disease_prevalence": 0.7272727272727273,
+        "auroc": 0.7618312757201646,
+        "brier": 0.16893711133042583
+      }
+    }
+  },
+  "uci_hcv_methodological_replication": {
+    "replication_context": "METHODOLOGICAL REPLICATION ONLY (Separately trained on UCI HCV; NOT external validation; NOT pooled with ILPD)",
+    "arm_a_primary": {
+      "arm": "Arm_A_Exclude_Suspect_Donors",
+      "n_samples": 608,
+      "disease_cases": 75,
+      "control_cases": 533,
+      "mean_auroc": 0.9928055016751894,
+      "ci95_auroc": [
+        0.9868080358116968,
+        0.998802967538682
+      ],
+      "mean_ap": 0.9820939712476716,
+      "mean_brier": 0.010895762630933583,
+      "mean_recall": 0.928888888888889
+    },
+    "arm_b_sensitivity": {
+      "arm": "Arm_B_Suspect_Donors_As_Positive",
+      "n_samples": 615,
+      "disease_cases": 82,
+      "control_cases": 533,
+      "mean_auroc": 0.9788078580047783,
+      "ci95_auroc": [
+        0.9679684452475696,
+        0.989647270761987
+      ],
+      "mean_ap": 0.9559851450909639,
+      "mean_brier": 0.021952087324144796,
+      "mean_recall": 0.8161764705882354
+    }
+  }
+}

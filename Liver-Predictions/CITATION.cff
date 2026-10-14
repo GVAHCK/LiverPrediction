@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata from this file."
+title: "Referral-Budgeted, Sex-Audited Selective Classification for Small-Sample Liver Laboratory Data"
+authors:
+  - family-names: "ML Research & Reproducibility Working Group"
+    affiliation: "Open Medical ML Reproducibility Initiative"
+date-released: 2026-10-14
+version: "3.0.0"
+repository-code: "https://github.com/SAKETH070706/CODE_STORM"
+license: "MIT"
+keywords:
+  - "selective-classification"
+  - "clinical-decision-support"
+  - "algorithmic-fairness"
+  - "nested-cross-validation"
+  - "liver-disease"
+  - "reproducible-research"

@@ -1,0 +1,28 @@
+{
+  "timestamp": "2026-10-14T18:55:00Z",
+  "environment": "Windows x64 (PowerShell / Python 3.11.15)",
+  "model_bundle": "app/production_model.joblib",
+  "model_version": "3.0.0",
+  "architecture": "CalibratedClassifierCV (Sigmoid, LogisticRegression L2, SMOTENC)",
+  "sample_count": 100,
+  "http_endpoint": {
+    "p50_ms": 17.81,
+    "p95_ms": 20.06,
+    "p99_ms": 44.1,
+    "mean_ms": 18.56,
+    "std_ms": 4.09,
+    "min_ms": 15.93,
+    "max_ms": 44.46,
+    "estimated_throughput_req_per_sec": 53.9
+  },
+  "pure_ml_pipeline": {
+    "p50_ms": 16.79,
+    "p95_ms": 20.65,
+    "p99_ms": 21.84,
+    "mean_ms": 17.25,
+    "std_ms": 1.53,
+    "min_ms": 15.22,
+    "max_ms": 22.24,
+    "estimated_throughput_inf_per_sec": 58.0
+  }
+}

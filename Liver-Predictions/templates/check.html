@@ -1,0 +1,275 @@
+{% extends "base.html" %} {% block content %}
+<script>
+    function printReport() {
+        const printContent = document.getElementById('report-section').innerHTML;
+        const printWindow = window.open('', '', 'width=800,height=600');
+        printWindow.document.write(`
+            <html>
+            <head>
+                <title>Print Report</title>
+                <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+            </head>
+            <body class="p-6 text-gray-800 bg-white">
+                ${printContent}
+            </body>
+            </html>
+        `);
+        printWindow.document.close();
+        printWindow.focus();
+        printWindow.print();
+    }
+</script>
+<section class="text-gray-400 bg-gray-900 body-font min-h-screen">
+    <div class="container px-5 py-8 mx-auto h-full">
+        <div class="flex flex-col md:flex-row gap-8 h-full">
+            <!-- Form Section (Left) -->
+            <div class="w-full md:w-1/2 h-full">
+                <div class="flex border-2 rounded-lg border-gray-800 p-8 h-full overflow-y-auto">
+                    <form class="w-full" method="POST" enctype="multipart/form-data">
+                        <div class="grid grid-cols-1 gap-4">
+                            <div class="flex flex-col mb-4">
+                                <label class="mb-2 uppercase tracking-wide font-bold text-xs text-grey-darkest" for="age">
+                                    Age</label>
+                                <input class="w-full bg-gray-600 bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-red-900 rounded border border-gray-600 focus:border-red-500 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                                    type="number" step="1" name="age" id="age" required placeholder="Range 1-100" min="1" max="120" {% if values is defined %}value="{{ values.Age }}"{% endif %} />
+                            </div>
+                            <div class="flex flex-col mb-4">
+                                <label class="mb-2 uppercase font-bold text-xs text-grey-darkest" for="gender">
+                                    Gender</label>
+                                <select class="w-full bg-gray-800 focus:ring-2 focus:ring-red-900 rounded border border-gray-600 focus:border-red-500 text-base outline-none text-gray-100 py-2 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                                    name="gender" id="gender" required>
+                                    <option value="1" {% if values is defined and values.Gender_Male == 1 %}selected{% endif %}>Male</option>
+                                    <option value="0" {% if values is defined and values.Gender_Female == 1 %}selected{% endif %}>Female</option>
+                                </select>
+                            </div>
+                            <div class="flex flex-col mb-4">
+                                <label class="mb-2 uppercase tracking-wide font-bold text-xs text-grey-darkest" for="tb">
+                                    Total Bilirubin (mg/dL)</label>
+                                <input class="w-full bg-gray-600 bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-red-900 rounded border border-gray-600 focus:border-red-500 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                                    type="number" name="tb" id="tb" min="0" step="0.1" max="100" required placeholder="e.g. 0.8 (Normal: 0.1 - 1.2)" {% if values is defined %}value="{{ values.Total_Bilirubin }}"{% endif %} />
+                            </div>
+                            <div class="flex flex-col mb-4">
+                                <label class="mb-2 uppercase tracking-wide font-bold text-xs text-grey-darkest" for="db">
+                                    Direct Bilirubin (mg/dL)</label>
+                                <input class="w-full bg-gray-600 bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-red-900 rounded border border-gray-600 focus:border-red-500 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                                    type="number" min="0" step="0.1" max="50" name="db" id="db" required placeholder="e.g. 0.2 (Normal: 0.0 - 0.3)" {% if values is defined %}value="{{ values.Direct_Bilirubin }}"{% endif %} />
+                            </div>
+                            <div class="flex flex-col mb-4">
+                                <label class="mb-2 uppercase tracking-wide font-bold text-xs text-grey-darkest" for="ap">
+                                    Alkaline Phosphatase (IU/L)</label>
+                                <input class="w-full bg-gray-600 bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-red-900 rounded border border-gray-600 focus:border-red-500 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                                    type="number" min="0" step="1" max="3000" name="ap" id="ap" required placeholder="e.g. 120 (Normal: 44 - 147)" {% if values is defined %}value="{{ values.Alkaline_Phosphotase }}"{% endif %} />
+                            </div>
+                            <div class="flex flex-col mb-4">
+                                <label class="mb-2 uppercase tracking-wide font-bold text-xs text-grey-darkest" for="aa">
+                                    Alamine Aminotransferase (ALT, IU/L)</label>
+                                <input class="w-full bg-gray-600 bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-red-900 rounded border border-gray-600 focus:border-red-500 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                                    type="number" min="0" step="1" max="3000" name="aa" id="aa" required placeholder="e.g. 25 (Normal: 7 - 56)" {% if values is defined %}value="{{ values.Alamine_Aminotransferase }}"{% endif %} />
+                            </div>
+                            <div class="flex flex-col mb-4">
+                                <label class="mb-2 uppercase tracking-wide font-bold text-xs text-grey-darkest" for="asa">
+                                    Aspartate Aminotransferase (AST, IU/L)</label>
+                                <input class="w-full bg-gray-600 bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-red-900 rounded border border-gray-600 focus:border-red-500 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                                    type="number" min="0" step="1" max="5000" name="asa" id="asa" required placeholder="e.g. 28 (Normal: 10 - 40)" {% if values is defined %}value="{{ values.Aspartate_Aminotransferase }}"{% endif %} />
+                            </div>
+                            <div class="flex flex-col mb-4">
+                                <label class="mb-2 uppercase tracking-wide font-bold text-xs text-grey-darkest" for="tp">
+                                    Total Proteins (g/dL)</label>
+                                <input class="w-full bg-gray-600 bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-red-900 rounded border border-gray-600 focus:border-red-500 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                                    type="number" min="0" step="0.1" max="15" name="tp" id="tp" required placeholder="e.g. 7.0 (Normal: 6.0 - 8.3)" {% if values is defined %}value="{{ values.Total_Protiens }}"{% endif %} />
+                            </div>
+                            <div class="flex flex-col mb-4">
+                                <label class="mb-2 uppercase tracking-wide font-bold text-xs text-grey-darkest" for="ab">
+                                    Albumin (g/dL)</label>
+                                <input class="w-full bg-gray-600 bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-red-900 rounded border border-gray-600 focus:border-red-500 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                                    type="number" min="0" step="0.1" max="15" name="ab" id="ab" required placeholder="e.g. 4.0 (Normal: 3.5 - 5.0)" {% if values is defined %}value="{{ values.Albumin }}"{% endif %} />
+                            </div>
+                            <div class="flex flex-col mb-4">
+                                <label class="mb-2 uppercase tracking-wide font-bold text-xs text-grey-darkest" for="ag">
+                                    Albumin and Globulin Ratio</label>
+                                <input class="w-full bg-gray-600 bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-red-900 rounded border border-gray-600 focus:border-red-500 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                                    type="number" name="ag" id="ag" required placeholder="e.g. 1.2 (Normal: 1.0 - 2.5)" max="10" min="0" step="0.01" {% if values is defined %}value="{{ values.Albumin_and_Globulin_Ratio }}"{% endif %} />
+                            </div>
+
+                        </div>
+                        <div class="flex justify-start gap-4 mt-6 sticky bottom-0 bg-gray-900 py-2">
+                            <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                Submit
+                            </button>   
+                            </div>                     
+                    </form>
+                </div>
+            </div>
+
+            <!-- Report Section (Right) -->
+            <div id="report-section" class="w-full md:w-1/2 h-full">
+                <div class="flex border-2 rounded-lg border-yellow-300 bg-white p-8 h-full overflow-y-auto">
+                    <div class="w-full">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b-2 border-gray-200 pb-2 sticky top-0 bg-white z-10">Report</h2>
+                            
+                        {% if error is defined and error %}
+                        <div class="mb-6 p-4 bg-red-50 rounded-lg border-l-4 border-red-500 text-red-800">
+                            <h3 class="text-base font-bold">Input Error</h3>
+                            <p class="text-sm mt-1">{{ error }}</p>
+                        </div>
+                        {% endif %}
+                            <!-- Result Display -->
+                        <div class="mb-8">
+                            {% if risk_band == 'LOW_RISK' or (result == 0 and risk_band is not defined) %}
+                            <div class="p-5 bg-green-50 rounded-lg border-2 border-green-500 shadow-sm">
+                                <div class="flex items-center justify-between mb-2">
+                                    <h3 class="text-xl font-bold text-green-900 flex items-center">
+                                        <span class="mr-2">🟢</span> Low Risk of Liver Disease
+                                    </h3>
+                                    {% if probability is defined %}
+                                    <span class="px-3 py-1 bg-green-200 text-green-900 font-bold rounded-full text-xs uppercase tracking-wide">
+                                        Calibrated Prob: {{ (probability * 100)|round(1) }}%
+                                    </span>
+                                    {% endif %}
+                                </div>
+                                <p class="text-green-800 text-sm font-medium mt-1 leading-relaxed">
+                                    {{ recommendation or "Biomarkers fall within standard reference intervals. Continue routine preventive health checkups." }}
+                                </p>
+                                {% if model_version is defined %}
+                                <div class="mt-3 pt-2 border-t border-green-200 text-xs text-green-700 flex justify-between">
+                                    <span>Model v{{ model_version }} (Calibrated Logistic Regression)</span>
+                                    <span>Triage: Decisive Low</span>
+                                </div>
+                                {% endif %}
+                            </div>
+                            {% elif risk_band == 'UNCERTAIN' %}
+                            <div class="p-5 bg-yellow-50 rounded-lg border-2 border-yellow-500 shadow-sm">
+                                <div class="flex items-center justify-between mb-2">
+                                    <h3 class="text-xl font-bold text-yellow-900 flex items-center">
+                                        <span class="mr-2">🟡</span> Uncertain / Indeterminate Risk
+                                    </h3>
+                                    {% if probability is defined %}
+                                    <span class="px-3 py-1 bg-yellow-200 text-yellow-900 font-bold rounded-full text-xs uppercase tracking-wide">
+                                        Calibrated Prob: {{ (probability * 100)|round(1) }}%
+                                    </span>
+                                    {% endif %}
+                                </div>
+                                <p class="text-yellow-800 text-sm font-medium mt-1 leading-relaxed">
+                                    {{ recommendation or "Biomarkers lie in the indeterminate threshold region (0.35 - 0.75). Model abstains from automated classification; clinical referral and follow-up liver function tests are recommended." }}
+                                </p>
+                                {% if model_version is defined %}
+                                <div class="mt-3 pt-2 border-t border-yellow-200 text-xs text-yellow-700 flex justify-between">
+                                    <span>Model v{{ model_version }} (Clinical Abstention Tier)</span>
+                                    <span>Triage: Clinical Referral</span>
+                                </div>
+                                {% endif %}
+                            </div>
+                            {% elif risk_band == 'HIGH_RISK' or (result == 1 and risk_band is not defined) %}
+                            <div class="p-5 bg-red-50 rounded-lg border-2 border-red-500 shadow-sm">
+                                <div class="flex items-center justify-between mb-2">
+                                    <h3 class="text-xl font-bold text-red-900 flex items-center">
+                                        <span class="mr-2">🔴</span> Potential Liver Disease Detected
+                                    </h3>
+                                    {% if probability is defined %}
+                                    <span class="px-3 py-1 bg-red-200 text-red-900 font-bold rounded-full text-xs uppercase tracking-wide">
+                                        Calibrated Prob: {{ (probability * 100)|round(1) }}%
+                                    </span>
+                                    {% endif %}
+                                </div>
+                                <p class="text-red-800 text-sm font-medium mt-1 leading-relaxed">
+                                    {{ recommendation or "Elevated probability of liver disease indicated. Prompt consultation with a gastroenterologist or hepatologist is recommended." }}
+                                </p>
+                                {% if model_version is defined %}
+                                <div class="mt-3 pt-2 border-t border-red-200 text-xs text-red-700 flex justify-between">
+                                    <span>Model v{{ model_version }} (High-Sensitivity Screening)</span>
+                                    <span>Triage: Decisive High</span>
+                                </div>
+                                {% endif %}
+                            </div>
+                            {% else %}
+                            <div class="p-5 bg-blue-50 rounded-lg border border-blue-300">
+                                <h3 class="text-lg font-medium text-blue-900">Patient Biomarker Assessment</h3>
+                                <p class="text-blue-700 text-sm mt-1">Submit patient laboratory panel on the left to compute calibrated disease probability and clinical triage recommendation.</p>
+                            </div>
+                            {% endif %}
+                            {% if values is defined %}
+                            <h3 class="text-base font-bold text-gray-800 mt-5 mb-2">Submitted Biomarkers</h3>
+                            <div class="grid grid-cols-2 gap-2 text-xs bg-gray-50 p-3 rounded-lg border border-gray-200">
+                                {% for key, value in values.items() %}
+                                {% if key not in ['Gender_Male', 'Gender_Female'] %}
+                                <div><strong class="text-gray-700">{{ key }}:</strong> <span class="text-gray-900">{{ value }}</span></div>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                            {% if tradeoff_warning is defined and tradeoff_warning %}
+                            <div class="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200 text-xs text-blue-900 leading-relaxed">
+                                <strong>Operating Trade-off:</strong> {{ tradeoff_warning }}
+                            </div>
+                            {% endif %}
+                            {% if female_fnr_warning is defined and female_fnr_warning %}
+                            <div class="mt-2 p-3 bg-purple-50 rounded-lg border border-purple-200 text-xs text-purple-900 leading-relaxed">
+                                <strong>Demographic Notice:</strong> {{ female_fnr_warning }}
+                            </div>
+                            {% endif %}
+                            {% endif %}
+                        </div>
+
+                        <!-- Reference Ranges -->
+                        <div class="mt-6">
+                            <h3 class="text-lg font-semibold text-yellow-700 mb-3">Biological Reference Ranges:</h3>
+                            <ul class="space-y-3 text-gray-600">
+                                <li class="flex items-start">
+                                    <span class="mr-2">•</span>
+
+                                    <span><strong>Total Bilirubin:</strong> 0.1 to 1.2 mg/dL (adults)</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="mr-2">•</span>
+                                    <span><strong>Direct Bilirubin:</strong> 0.0 to 0.3 mg/dL</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="mr-2">•</span>
+                                    <span><strong>Alkaline Phosphatase:</strong><br>
+                                    - Adults: 44-147 IU/L<br>
+                                    - Children: Up to 350 IU/L</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="mr-2">•</span>
+                                    <span><strong>ALT (Alanine Aminotransferase):</strong><br>
+                                    - Men: 10-40 U/L<br>
+                                    - Women: 7-35 U/L</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="mr-2">•</span>
+                                    <span><strong>AST (Aspartate Aminotransferase):</strong> 8-48 U/L (adults)</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="mr-2">•</span>
+                                    <span><strong>Total Protein:</strong> 6.0-8.3 g/dL (adults)</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="mr-2">•</span>
+                                    <span><strong>Albumin:</strong> 3.5-5.0 g/dL (adults)</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="mr-2">•</span>
+                                    <span><strong>A/G Ratio:</strong> 1.0-2.0 (slightly lower in elderly)</span>
+                                </li>
+                            </ul>
+                            <button type="button" onclick="printReport()" class="inline-flex items-center px-6 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 cursor-pointer">
+                                🖨️ Print Report
+                            </button>
+                        </div>
+
+                        <!-- Additional Notes & Medical Disclaimer -->
+                        <div class="mt-6 p-4 bg-yellow-50 rounded-lg border border-yellow-200 sticky bottom-0">
+                            <h4 class="text-sm font-semibold text-yellow-800 mb-2">⚠️ Important Clinical Disclaimer:</h4>
+                            <p class="text-xs text-yellow-800 leading-relaxed">
+                                • <strong>Experimental AI Tool:</strong> Model outputs are statistical predictions, not a medical diagnosis or treatment recommendation.<br>
+                                • <strong>Clinical Assessment Required:</strong> Never start, stop, or modify medical treatment based solely on this tool.<br>
+                                • <strong>Professional Consultation:</strong> Always consult a licensed healthcare professional or physician for diagnostic confirmation and clinical interpretation.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

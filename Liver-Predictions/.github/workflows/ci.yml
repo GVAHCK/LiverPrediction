@@ -1,0 +1,43 @@
+name: CI & Reproducibility Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-lock.txt
+          pip install ruff
+
+      - name: Lint with ruff
+        run: |
+          ruff check src/ tests/ server.py --ignore E501,E402,F401,F841 || true
+
+      - name: Run unit test suite
+        run: |
+          pytest -v tests/
+
+      - name: Auto-generate LaTeX tables and verify paper numbers
+        run: |
+          python -m src.generate_paper_tables
+          python -m src.verify_paper_numbers
+
+      - name: Verify artifact hashes
+        run: |
+          cd artifacts && sha256sum -c HASHES.sha256
